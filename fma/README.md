@@ -7,12 +7,5 @@ An interactive stock prediction game built for RIT's FMA Imagine RIT 2025 instal
 - **[Developer Docs](./DEVELOPER.md)** — Setup, installation, and development guide
 - **[Gamemaster Docs](./GAMEMASTER.md)** — How to install and run the game for players
 
-## Quick Links
-
-- **Leaderboard** — Real-time rankings from all kiosk stations
-- **Kiosk** — Interactive stock prediction game interface
-- **Storage** — Shared local storage for multi-station coordination
-
----
 
 For more information, see the relevant documentation above.
