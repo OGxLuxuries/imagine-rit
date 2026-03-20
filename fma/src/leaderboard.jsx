@@ -153,7 +153,7 @@ export default function Leaderboard() {
                 position: "relative", overflow: "hidden",
                 border: `1px solid ${isTop3 ? accent + "44" : "rgba(255,255,255,0.05)"}`,
                 borderRadius: "4px",
-                padding: "18px 28px",
+                padding: "18px 28px 28px 28px",
                 display: "flex", alignItems: "center", gap: "28px",
                 animation: "slideIn 0.5s ease",
                 animationDelay: `${i * 0.05}s`,
@@ -185,7 +185,7 @@ export default function Leaderboard() {
                     {entry.name}
                   </div>
                   <div style={{ fontSize: "11px", color: "#444", marginTop: "2px", letterSpacing: "2px" }}>
-                    {entry.correct}/6 CORRECT · {new Date(entry.time).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}
+                    {entry.correct}/10 CORRECT · {new Date(entry.time).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}
                   </div>
                 </div>
 
@@ -199,13 +199,13 @@ export default function Leaderboard() {
                   }}>
                     {entry.points.toLocaleString()}
                   </div>
-                  <div style={{ fontSize: "10px", color: "#333", letterSpacing: "3px" }}>POINTS</div>
+                  <div style={{ fontSize: "10px", color: "#333", letterSpacing: "3px", marginBottom: "15px" }}>POINTS</div>
                 </div>
 
                 {/* Top badge */}
                 {rank === 1 && (
                   <div style={{
-                    position: "absolute", top: "8px", right: "12px",
+                    position: "absolute", bottom: "10px", right: "10px",
                     fontSize: "9px", letterSpacing: "3px", color: "#00ff87",
                     padding: "3px 10px", border: "1px solid rgba(0,255,135,0.3)",
                     borderRadius: "2px", background: "rgba(0,255,135,0.08)",
