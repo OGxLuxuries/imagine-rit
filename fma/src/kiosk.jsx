@@ -216,7 +216,7 @@ export default function Kiosk() {
         zIndex: 0, pointerEvents: "none",
       }} />
 
-      <div style={{ position: "relative", zIndex: 1, width: "100%", maxWidth: "580px", padding: "24px" }}>
+      <div style={{ position: "relative", zIndex: 1, width: "100%", maxWidth: "580px", padding: "24px", boxSizing: "border-box" }}>
 
         {/* ── INTRO ── */}
         {screen === "intro" && (
@@ -271,7 +271,7 @@ export default function Kiosk() {
         {/* ── NAME ── */}
         {screen === "name" && (
           <div style={{ textAlign: "center", animation: "fadeUp 0.5s ease both" }}>
-            <div style={{ fontFamily: "'Bebas Neue'", fontSize: "48px", color: "#fff", marginBottom: "8px" }}>WHO ARE YOU?</div>
+            <div style={{ fontFamily: "'Bebas Neue'", fontSize: "clamp(36px, 10vw, 48px)", color: "#fff", marginBottom: "8px" }}>WHO ARE YOU?</div>
             <div style={{ color: "#3a3a3a", fontSize: "11px", letterSpacing: "3px", marginBottom: "40px" }}>YOUR NAME GOES ON THE BIG BOARD</div>
             <input autoFocus value={nameInput} onChange={e => setNameInput(e.target.value)}
               onKeyDown={e => e.key === "Enter" && nameInput.trim().length >= 2 && (setName(nameInput.trim()), setScreen("game"))}
@@ -333,7 +333,7 @@ export default function Kiosk() {
               borderRadius: "6px", padding: "20px", marginBottom: "14px",
             }}>
               {/* Header */}
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "18px" }}>
+              <div className="game-card-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "18px" }}>
                 <div>
                   <div style={{ fontFamily: "'Bebas Neue'", fontSize: "50px", color: "#fff", lineHeight: 1 }}>{stock.ticker}</div>
                   <div style={{ fontSize: "11px", color: "#444", marginTop: "2px" }}>{stock.name}</div>
@@ -343,7 +343,7 @@ export default function Kiosk() {
                     borderRadius: "2px", fontSize: "9px", color: "#555", letterSpacing: "2px",
                   }}>{stock.sector}</div>
                 </div>
-                <div style={{ textAlign: "right" }}>
+                <div className="game-card-header-right" style={{ textAlign: "right" }}>
                   <div style={{ fontSize: "22px", color: "#fff" }}>${stock.price.toFixed(2)}</div>
                   <div style={{ fontSize: "9px", color: "#333", marginBottom: "8px", letterSpacing: "1px" }}>AT REPORT DATE</div>
                   <Sparkline data={sparkData} />
@@ -385,7 +385,7 @@ export default function Kiosk() {
             {/* Pick buttons */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
               {[["UP", "▲"], ["DOWN", "▼"]].map(([dir, arrow]) => (
-                <button key={dir} onClick={() => handlePick(dir)} style={{
+                <button className="game-card-pick" key={dir} onClick={() => handlePick(dir)} style={{
                   background: "rgba(255,255,255,0.03)",
                   border: "1px solid rgba(255,255,255,0.1)",
                   borderRadius: "4px", padding: "22px 12px", cursor: "pointer",
@@ -471,6 +471,19 @@ export default function Kiosk() {
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(20px); }
           to   { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 480px) {
+          .game-card-header {
+            flex-direction: column;
+            gap: 12px;
+          }
+          .game-card-header-right {
+            text-align: left !important;
+          }
+          .game-card-pick {
+            padding: 16px 8px !important;
+            font-size: 22px !important;
+          }
         }
       `}</style>
     </div>

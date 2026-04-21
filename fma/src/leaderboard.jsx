@@ -71,6 +71,14 @@ export default function Leaderboard() {
     return () => clearInterval(t);
   }, []);
 
+  const resetLeaderboard = async () => {
+    if (window.confirm("Are you sure you want to reset the leaderboard?")) {
+      try {
+        await window.storage.set(STORAGE_KEY, JSON.stringify([]), true);
+      } catch (e) { console.error(e); }
+    }
+  };
+
   const maxPts = board.length > 0 ? board[0].points : 6200;
   const medals = ["🥇", "🥈", "🥉"];
 
@@ -127,6 +135,16 @@ export default function Leaderboard() {
             }}>
               <div style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#00ff87", animation: "pulse 2s infinite" }} />
               <span style={{ fontSize: "11px", color: "#00ff87", letterSpacing: "2px" }}>LIVE</span>
+              <button 
+                onClick={resetLeaderboard} 
+                style={{ 
+                  marginLeft: '8px', padding: '4px 8px', background: 'transparent',
+                  border: '1px solid currentColor', color: '#ff4d6d', fontSize: '10px', 
+                  borderRadius: '3px', cursor: 'pointer', fontFamily: "'DM Mono', monospace"
+                }}
+              >
+                RESET
+              </button>
             </div>
           </div>
         </div>
