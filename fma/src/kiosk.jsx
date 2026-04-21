@@ -231,16 +231,6 @@ export default function Kiosk() {
               10 REAL STOCKS · REAL Q4 2025 / Q1 2026 DATA · PICK UP OR DOWN
             </div>
 
-            <div style={{ display: "flex", gap: "8px", justifyContent: "center", marginBottom: "32px" }}>
-              {["EASY","MEDIUM","HARD","EXPERT"].map(lbl => (
-                <div key={lbl} style={{
-                  padding: "5px 12px", borderRadius: "2px",
-                  background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)",
-                  fontSize: "9px", letterSpacing: "2px", color: "#666",
-                }}>{lbl}</div>
-              ))}
-            </div>
-
             <div style={{
               background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
               borderRadius: "4px", padding: "20px", marginBottom: "32px", textAlign: "left",
