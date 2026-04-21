@@ -1,26 +1,24 @@
 import { useState, useEffect, useRef } from "react";
 
-const STORAGE_KEY = "fmc-leaderboard";
-
 function useLeaderboard() {
   const [board, setBoard] = useState([]);
   const prevBoard = useRef([]);
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchBoard = async () => {
       try {
-        const result = await window.storage.get(STORAGE_KEY, true);
-        if (result) {
-          const data = JSON.parse(result.value);
+        const res = await fetch('/api/leaderboard');
+        if (res.ok) {
+          const data = await res.json();
           setBoard(data);
           prevBoard.current = data;
         }
       } catch (e) {
-        // No data yet
+        // null
       }
     };
-    fetch();
-    const interval = setInterval(fetch, 3000);
+    fetchBoard();
+    const interval = setInterval(fetchBoard, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -74,7 +72,7 @@ export default function Leaderboard() {
   const resetLeaderboard = async () => {
     if (window.confirm("Are you sure you want to reset the leaderboard?")) {
       try {
-        await window.storage.set(STORAGE_KEY, JSON.stringify([]), true);
+        await fetch('/api/leaderboard', { method: 'DELETE' });
       } catch (e) { console.error(e); }
     }
   };

@@ -95,8 +95,6 @@ const STOCKS = [
   },
 ];
 
-const STORAGE_KEY = "fmc-leaderboard";
-
 const DIFF_STYLES = {
   EASY:   { border: "rgba(180,180,180,0.35)", text: "#888" },
   MEDIUM: { border: "rgba(180,180,180,0.35)", text: "#888" },
@@ -180,11 +178,11 @@ export default function Kiosk() {
       const points = correct * 1000 + bonus + Math.floor(Math.random() * 100);
       setScore({ correct, total: STOCKS.length, points, picks: newPicks });
       try {
-        const ex = await window.storage.get(STORAGE_KEY, true);
-        const board = ex ? JSON.parse(ex.value) : [];
-        board.push({ name, points, correct, time: Date.now() });
-        board.sort((a, b) => b.points - a.points);
-        await window.storage.set(STORAGE_KEY, JSON.stringify(board.slice(0, 20)), true);
+        await fetch('/api/leaderboard', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, points, correct })
+        });
       } catch (e) { console.error(e); }
       setScreen("result");
     }
