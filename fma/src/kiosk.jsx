@@ -163,6 +163,7 @@ export default function Kiosk() {
   const ds = stock ? DIFF_STYLES[stock.diffLabel] : DIFF_STYLES.EASY;
 
   const handlePick = async (dir) => {
+    window.scrollTo(0, 0);
     document.getElementById("scroll-container")?.scrollTo(0, 0);
     const newPicks = { ...picks, [stock.ticker]: dir };
     setPicks(newPicks);
