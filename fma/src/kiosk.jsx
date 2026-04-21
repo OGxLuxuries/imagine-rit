@@ -165,6 +165,7 @@ export default function Kiosk() {
   const ds = stock ? DIFF_STYLES[stock.diffLabel] : DIFF_STYLES.EASY;
 
   const handlePick = async (dir) => {
+    document.getElementById("scroll-container")?.scrollTo(0, 0);
     const newPicks = { ...picks, [stock.ticker]: dir };
     setPicks(newPicks);
     setAnimIn(false);
@@ -384,15 +385,20 @@ export default function Kiosk() {
 
             {/* Pick buttons */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-              {[["UP", "▲"], ["DOWN", "▼"]].map(([dir, arrow]) => (
-                <button className="game-card-pick" key={dir} onClick={() => handlePick(dir)} style={{
+              {[["UP", "▲", "#00ff87", "rgba(0,255,135,0.08)"], ["DOWN", "▼", "#ff4d6d", "rgba(255,77,109,0.08)"]].map(([dir, arrow, color, bg]) => (
+                <button className="game-card-pick" key={dir} onClick={(e) => {
+                  e.currentTarget.style.background = bg;
+                  e.currentTarget.style.borderColor = color;
+                  e.currentTarget.style.color = color;
+                  handlePick(dir);
+                }} style={{
                   background: "rgba(255,255,255,0.03)",
                   border: "1px solid rgba(255,255,255,0.1)",
                   borderRadius: "4px", padding: "22px 12px", cursor: "pointer",
                   fontFamily: "'Bebas Neue'", fontSize: "28px", color: "#777",
                   letterSpacing: "2px", transition: "all 0.15s",
                 }}
-                  onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.07)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.28)"; e.currentTarget.style.color = "#fff"; e.currentTarget.style.transform = "translateY(-3px)"; }}
+                  onMouseEnter={e => { e.currentTarget.style.background = bg; e.currentTarget.style.borderColor = color; e.currentTarget.style.color = color; e.currentTarget.style.transform = "translateY(-3px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.03)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "#777"; e.currentTarget.style.transform = ""; }}
                 >{arrow} {dir}</button>
               ))}
